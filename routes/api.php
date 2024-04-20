@@ -11,7 +11,12 @@ use App\Http\Controllers\AuthController;
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']); 
 
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('crearEmpresa', [EmpresaController::class, 'store']);
     Route::get('empresas', [EmpresaController::class, 'index']);
+    Route::put('/updateEmpresa/{empresa}', [EmpresaController::class, 'update']);
+    Route::delete('/deleteEmpresa/{empresa}', [EmpresaController::class, 'destroy']);
+    
 });

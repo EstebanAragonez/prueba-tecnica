@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use App\Http\Requests\StoreEmpresaRequest;
 use App\Http\Requests\UpdateEmpresaRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -29,7 +30,7 @@ class EmpresaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEmpresaRequest $request)
     {
         $data = $request->all();
         if ($request->hasFile('logotipo')) {
@@ -62,20 +63,33 @@ class EmpresaController extends Controller
     public function update(UpdateEmpresaRequest $request, Empresa $empresa)
     {
         $data = $request->validated();
+        logger()->info('Datos validados antes de la actualización:', $data);
+
         if ($request->hasFile('logotipo')) {
             $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
         }
 
-        $empresa->update($data);
+        $updated = $empresa->update($data);
+        logger()->info('Resultado de la actualización:', ['updated' => $updated]);
+
+        $empresa->refresh(); // Asegúrate de que se recargan los datos del modelo de la base de datos
         return response()->json($empresa);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
-        $empresa->delete();
-        return response()->json(null, 204);
+        try {
+            $empresa = Empresa::findOrFail($id);
+            $nombre = $empresa->nombre;
+            $empresa->delete();
+            return response()->json(['message' => "La empresa '$nombre' fue eliminada con éxito"], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'No se encontró ninguna empresa con ese ID'], 404);
+        }
     }
 }
