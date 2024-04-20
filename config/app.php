@@ -120,7 +120,21 @@ return [
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
-        'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+    
+
+    'aliases' => [
+        // Otros aliases...
+        'Storage' => Illuminate\Support\Facades\Storage::class,
+        // Asegúrate de que está incluido
+    ],
+    
+/*     'providers' => [
+        // Otros proveedores...
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Laravel\Sanctum\SanctumServiceProvider::class,
+    ], */
+    
+    
 
 ];

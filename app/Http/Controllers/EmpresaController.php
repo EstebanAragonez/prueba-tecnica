@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use App\Http\Requests\StoreEmpresaRequest;
 use App\Http\Requests\UpdateEmpresaRequest;
+use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
@@ -13,7 +14,8 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        //
+        $empresas = Empresa::all();
+        return response()->json($empresas);
     }
 
     /**
@@ -27,12 +29,15 @@ class EmpresaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEmpresaRequest $request)
+    public function store(Request $request)
     {
+        $data = $request->all();
         if ($request->hasFile('logotipo')) {
-            $path = $request->file('logotipo')->store('logotipos', 'public');
-            // Guarda $path en tu base de datos
+            $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
         }
+
+        $empresa = Empresa::create($data);
+        return response()->json($empresa, 201);
     }
 
     /**
@@ -40,7 +45,7 @@ class EmpresaController extends Controller
      */
     public function show(Empresa $empresa)
     {
-        //
+        return response()->json($empresa);
     }
 
     /**
@@ -56,7 +61,13 @@ class EmpresaController extends Controller
      */
     public function update(UpdateEmpresaRequest $request, Empresa $empresa)
     {
-        //
+        $data = $request->validated();
+        if ($request->hasFile('logotipo')) {
+            $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
+        }
+
+        $empresa->update($data);
+        return response()->json($empresa);
     }
 
     /**
@@ -64,6 +75,7 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        $empresa->delete();
+        return response()->json(null, 204);
     }
 }
