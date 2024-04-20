@@ -60,23 +60,29 @@ class EmpresaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmpresaRequest $request, Empresa $empresa)
+    public function update(UpdateEmpresaRequest $request, $id)
     {
-        $data = $request->validated();
-        logger()->info('Datos validados antes de la actualización:', $data);
-
-        if ($request->hasFile('logotipo')) {
-            $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
+        if ($id === null || !is_numeric($id) || $id <= 0) {
+            return response()->json(['message' => 'ID inválido proporcionado'], 400);
         }
-
-        $updated = $empresa->update($data);
-        logger()->info('Resultado de la actualización:', ['updated' => $updated]);
-
-        $empresa->refresh(); // Asegúrate de que se recargan los datos del modelo de la base de datos
-        return response()->json($empresa);
+    
+        try {
+            $empresa = Empresa::findOrFail($id);
+    
+            $data = $request->validated();
+            if ($request->hasFile('logotipo')) {
+                $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
+            }
+    
+            $empresa->update($data);
+            $empresa->refresh();
+    
+            return response()->json(['message' => 'Empresa actualizada correctamente', 'data' => $empresa]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'No se encontró ninguna empresa con ese ID'], 404);
+        }
     }
-
-
+    
 
     /**
      * Remove the specified resource from storage.

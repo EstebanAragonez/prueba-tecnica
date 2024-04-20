@@ -22,7 +22,10 @@ class UpdateEmpresaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|string|max:255',
+            'email' => 'nullable|email',
+            'sitio_web' => 'nullable|url',
+            'logotipo' => 'nullable|image|max:1024', // Max 1MB
         ];
     }
 }
