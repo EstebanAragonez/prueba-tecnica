@@ -11,7 +11,7 @@ class StoreEmpleadoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'empresas_id' => 'required|integer|exists:empresas,id', // Asegura que la empresa exista
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            'apellido.required' => 'El campo apellido es obligatorio.',
+            'empresas_id.required' => 'El campo empresas_id es obligatorio.',
         ];
     }
 }

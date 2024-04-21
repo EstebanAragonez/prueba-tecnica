@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Empleado extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nombre', 'apellido', 'empresas_id'];
+
+    // se define la relación con Empresa
+    public function empresa()
+    {
+        return $this->belongsTo('App\Models\Empresa', 'empresas_id');
+    }
 }

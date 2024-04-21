@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name'); // Nombre del empleado
-            $table->string('last_name'); // Apellido del empleado
+            $table->string('nombre'); // Nombre del empleado
+            $table->string('apellido'); // Apellido del empleado
             $table->foreignId('empresas_id')->constrained('empresas')->onDelete('cascade'); // Clave foránea referenciando a 'empresas'
             $table->timestamps(); // Crea los campos created_at y updated_at
         });
