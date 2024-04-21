@@ -33,11 +33,15 @@ class EmpleadoController extends Controller
     public function store(StoreEmpleadoRequest $request)
     {
         $validatedData = $request->validated();
-
+    
         $empleado = Empleado::create($validatedData);
-
-        return response()->json($empleado, 201);
+    
+        return response()->json([
+            'empleado' => $empleado,
+            'message' => 'Empleado creado exitosamente'
+        ], 201);
     }
+    
 
     /**
      * Display the specified resource.

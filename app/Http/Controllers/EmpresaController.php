@@ -32,13 +32,22 @@ class EmpresaController extends Controller
     public function store(StoreEmpresaRequest $request)
     {
         $data = $request->all();
+
+        // Manejar la subida del logotipo si está presente en la solicitud
         if ($request->hasFile('logotipo')) {
             $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
         }
 
+        // Crear la empresa con los datos procesados
         $empresa = Empresa::create($data);
-        return response()->json($empresa, 201);
+
+        // Devolver una respuesta JSON con la empresa y un mensaje de éxito
+        return response()->json([
+            'empresa' => $empresa,
+            'message' => 'Empresa creada con éxito'
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -64,24 +73,24 @@ class EmpresaController extends Controller
         if ($id === null || !is_numeric($id) || $id <= 0) {
             return response()->json(['message' => 'ID inválido proporcionado'], 400);
         }
-    
+
         try {
             $empresa = Empresa::findOrFail($id);
-    
+
             $data = $request->validated();
             if ($request->hasFile('logotipo')) {
                 $data['logotipo'] = $request->file('logotipo')->store('logotipos', 'public');
             }
-    
+
             $empresa->update($data);
             $empresa->refresh();
-    
+
             return response()->json(['message' => 'Empresa actualizada correctamente', 'data' => $empresa]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'No se encontró ninguna empresa con ese ID'], 404);
         }
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
