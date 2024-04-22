@@ -64,3 +64,46 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Prueba Tecnica
+api para crear empresas y empleados utilizando PHP-Laravel y Sanctum para autenticación.
+
+## Requisitos Previos
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
+- PHP (8.2.12superior).
+- en mi caso utilice XAMPP para configurar fácilmente un entorno de servidor web local.
+- Composer
+
+## Configuración del Entorno
+Clona el repositorio en tu máquina local usando:
+git clone https://github.com/EstebanAragonez/prueba-tecnica.git
+cd prueba-tecnica
+Instala las dependencias de PHP necesarias: 
+composer install
+
+## Configuración de la Base de Datos
+Crea una nueva base de datos en tu sistema de gestión de bases de datos, en mi caso la llame pruebatecnica.
+Copia el archivo .env.example a un nuevo archivo .env 
+Abre el archivo .env y configura las variables de entorno relevantes para la base de datos:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pruebatecnica
+DB_USERNAME=root
+DB_PASSWORD=
+
+## Generación de la Clave de la Aplicación
+Genera la clave de la aplicación Laravel:
+php artisan key:generate
+
+## Migraciones y Semillas(seeds) de la Base de Datos.
+php artisan migrate
+php artisan db:seed
+
+## Ejecutar la Aplicación
+php artisan serve
+
+## Uso de la API
+Para utilizar la API, necesitarás autenticarte y utilizar tokens de acceso. 
+Consulta la documentación de la API generada en postman para utilizarlos utilizarlos.
