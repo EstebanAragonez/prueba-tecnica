@@ -106,4 +106,4 @@ php artisan serve
 
 ## Uso de la API
 Para utilizar la API, necesitarás autenticarte y utilizar tokens de acceso. 
-Consulta la documentación de la API generada en postman para utilizarlos utilizarlos.
+Consulta la documentación de la API generada en postman para utilizarlos.
