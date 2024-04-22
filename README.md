@@ -70,7 +70,7 @@ api para crear empresas y empleados utilizando PHP-Laravel y Sanctum para autent
 
 ## Requisitos Previos
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
-- PHP (8.2.12superior).
+- PHP (8.2.12 o superior).
 - en mi caso utilice XAMPP para configurar fácilmente un entorno de servidor web local.
 - Composer
 
