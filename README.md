@@ -75,34 +75,34 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - Composer
 
 ## Configuración del Entorno
-Clona el repositorio en tu máquina local usando:
-git clone https://github.com/EstebanAragonez/prueba-tecnica.git
-cd prueba-tecnica
-Instala las dependencias de PHP necesarias: 
-composer install
+- Clona el repositorio en tu máquina local usando:
+- git clone https://github.com/EstebanAragonez/prueba-tecnica.git
+- cd prueba-tecnica
+- Instala las dependencias de PHP necesarias: 
+- composer install
 
 ## Configuración de la Base de Datos
 Crea una nueva base de datos en tu sistema de gestión de bases de datos, en mi caso la llame pruebatecnica.
 Copia el archivo .env.example a un nuevo archivo .env 
 Abre el archivo .env y configura las variables de entorno relevantes para la base de datos:
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=pruebatecnica
-DB_USERNAME=root
-DB_PASSWORD=
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=pruebatecnica
+- DB_USERNAME=root
+- DB_PASSWORD=
 
 ## Generación de la Clave de la Aplicación
 Genera la clave de la aplicación Laravel:
-php artisan key:generate
+- php artisan key:generate
 
 ## Migraciones y Semillas(seeds) de la Base de Datos.
-php artisan migrate
-php artisan db:seed
+- php artisan migrate
+- php artisan db:seed
 
 ## Ejecutar la Aplicación
-php artisan serve
+- php artisan serve
 
 ## Uso de la API
 Para utilizar la API, necesitarás autenticarte y utilizar tokens de acceso. 
