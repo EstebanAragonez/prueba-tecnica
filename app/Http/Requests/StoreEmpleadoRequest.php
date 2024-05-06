@@ -30,9 +30,10 @@ class StoreEmpleadoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nombre.required' => 'El campo nombre es obligatorio.',
-            'apellido.required' => 'El campo apellido es obligatorio.',
-            'empresas_id.required' => 'El campo empresas_id es obligatorio.',
+            'nombre.required' => 'El campo nombre es obligatorio',
+            'apellido.required' => 'El campo apellido es obligatorio',
+            'empresas_id.required' => 'El campo empresas_id es obligatorio',
+            'cargo_id' => 'nullable|integer|exists:cargos,id'
         ];
     }
 }

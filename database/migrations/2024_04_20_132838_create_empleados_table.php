@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre'); // Nombre del empleado
             $table->string('apellido'); // Apellido del empleado
             $table->foreignId('empresas_id')->constrained('empresas')->onDelete('cascade'); // Clave foránea referenciando a 'empresas'
+            $table->foreignId('cargo_id')->constrained('cargos')->onDelete('set null'); // Clave foránea referenciando a 'cargos'
             $table->timestamps(); // Crea los campos created_at y updated_at
         });
     }

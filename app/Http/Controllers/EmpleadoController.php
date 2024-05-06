@@ -33,15 +33,15 @@ class EmpleadoController extends Controller
     public function store(StoreEmpleadoRequest $request)
     {
         $validatedData = $request->validated();
-    
+
         $empleado = Empleado::create($validatedData);
-    
+
         return response()->json([
             'empleado' => $empleado,
             'message' => 'Empleado creado exitosamente'
         ], 201);
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -62,13 +62,11 @@ class EmpleadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmpleadoRequest $request, Empleado $id)
+    public function update(UpdateEmpleadoRequest $request, Empleado $empleado) // Cambia $id por $empleado
     {
-
-        $empleado = Empleado::find($id);
-
+        // Ya no es necesario buscar el empleado, Laravel ya lo resuelve gracias al Route Model Binding
         if (!$empleado) {
-            return response()->json(['message' => 'ID no válido'], 404);
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
         }
 
         $validatedData = $request->validated();
@@ -76,6 +74,7 @@ class EmpleadoController extends Controller
 
         return response()->json($empleado, 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

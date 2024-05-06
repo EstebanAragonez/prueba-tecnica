@@ -16,4 +16,9 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\Models\Empresa', 'empresas_id');
     }
+
+    public function cargo()
+    {
+        return $this->belongsTo(Cargos::class, 'cargo_id');
+    }
 }
